@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}About - Good AI Skin Doctor{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="card shadow-lg mx-auto">
+        <div class="card-body">
+            <h2 class="card-title mb-4">About Good AI Skin Doctor</h2>
+            
+            <div class="mb-4">
+                <h4 class="mb-3">Our Mission</h4>
+                <p>Good AI Skin Doctor aims to make professional skin analysis accessible to everyone through advanced artificial intelligence. We combine cutting-edge machine learning with dermatological expertise to provide accurate skin condition assessments and personalized care recommendations.</p>
+            </div>
+
+            <div class="mb-4">
+                <h4 class="mb-3">What We Offer</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">🔍 Advanced skin condition analysis using AI</li>
+                    <li class="list-group-item">📋 Personalized skincare routines</li>
+                    <li class="list-group-item">🌿 Natural remedy suggestions</li>
+                    <li class="list-group-item">📊 Detailed analysis history tracking</li>
+                    <li class="list-group-item">🤖 AI-powered chatbot assistance</li>
+                </ul>
+            </div>
+
+            <div class="mb-4">
+                <h4 class="mb-3">How It Works</h4>
+                <p>Our system uses state-of-the-art deep learning models trained on vast datasets of skin conditions. When you upload an image:</p>
+                <ol class="list-group list-group-numbered mb-3">
+                    <li class="list-group-item">Our AI analyzes the image using advanced computer vision</li>
+                    <li class="list-group-item">Multiple machine learning models assess the characteristics</li>
+                    <li class="list-group-item">Results are cross-referenced with our medical database</li>
+                    <li class="list-group-item">You receive detailed analysis and recommendations</li>
+                </ol>
+
+                <h5 class="mb-3 mt-4">Detectable Conditions</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-header">Original Model Conditions</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">🔸 Actinic keratosis</li>
+                                <li class="list-group-item">🔸 Basal cell carcinoma</li>
+                                <li class="list-group-item">🔸 Benign keratosis</li>
+                                <li class="list-group-item">🔸 Dermatofibroma</li>
+                                <li class="list-group-item">🔸 Melanoma</li>
+                                <li class="list-group-item">🔸 Melanocytic nevus</li>
+                                <li class="list-group-item">🔸 Vascular lesion</li>
+                                <li class="list-group-item">🔸 Acne vulgaris</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-header">Extended Detection</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">🔸 Psoriasis</li>
+                                <li class="list-group-item">🔸 Eczema (Atopic Dermatitis)</li>
+                                <li class="list-group-item">🔸 Rosacea</li>
+                                <li class="list-group-item">🔸 Seborrheic Keratosis</li>
+                                <li class="list-group-item">🔸 Tinea (fungal infections)</li>
+                                <li class="list-group-item">🔸 Contact Dermatitis</li>
+                                <li class="list-group-item">🔸 Skin Tags</li>
+                                <li class="list-group-item">🔸 Warts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <h5 class="alert-heading">⚠️ Important Note</h5>
+                <p class="mb-0">While our AI provides accurate analysis, it should not replace professional medical advice. Always consult a dermatologist for proper diagnosis and treatment of serious skin conditions.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include '_chatbot_button.html' %}
+{% endblock %}

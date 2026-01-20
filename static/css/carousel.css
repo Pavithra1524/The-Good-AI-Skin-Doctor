@@ -1,0 +1,40 @@
+body {
+  display: flex;
+  justify-content: flex-start;
+  width:100%;
+  align-items: flex-start;
+  height: 100vh;
+  margin: 0;
+  background: #fff;
+  flex-direction: column;
+  background: url("/static/img/bg.png") no-repeat center center fixed;
+  background-size: cover;
+ background-color: rgba(0,0,0,0.5); /* dark tint */
+  background-blend-mode: multiply;
+}
+
+.swiper {
+  width: 80%;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+
+  /* ✅ Background image */
+  background-size: cover;
+}
+
+/* Make slides fill swiper */
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;   /* ✅ important */
+  height: 100%;  /* ✅ important */
+}
+
+/* Make images fill slide */
+.swiper-slide img {
+  width: 100%;   /* ✅ stretch full width */
+  height: 100%;  /* ✅ stretch full height */
+  object-fit: fill; /* ✅ prevents distortion */
+}

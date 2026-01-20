@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/carousel.css') }}">
+{% endblock %}
+
+{% block title %}Good AI Skin Doctor{% endblock %}
+
+{% block content %}
+
+<!-- ✅ Hero Section -->
+<div class="hero">
+  <!-- Left side: text + button -->
+  <div class="hero-card">
+      <h1>Welcome to The Good AI Skin Doctor</h1>
+      <p>Analyze your skin and get personalized skincare recommendations.</p>
+      <a href="{{ url_for('upload') }}" class="btn btn-lg btn-primary">Start Now</a>
+  </div>
+
+  <!-- Right side: carousel -->
+  <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="/static/img/c1.png" alt="Slide 1"></div>
+        <div class="swiper-slide"><img src="/static/img/c2.png" alt="Slide 2"></div>
+        <div class="swiper-slide"><img src="/static/img/c3.png" alt="Slide 3"></div>
+        <div class="swiper-slide"><img src="/static/img/c4.png" alt="Slide 4"></div>
+      </div>
+
+      <!-- Pagination + Arrows -->
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+  </div>
+</div>
+
+{% include '_chatbot_button.html' %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    loop: true,
+    autoplay: { delay: 3000, disableOnInteraction: false },
+    pagination: { el: ".swiper-pagination", clickable: true },
+    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+  });
+</script>
+{% endblock %}

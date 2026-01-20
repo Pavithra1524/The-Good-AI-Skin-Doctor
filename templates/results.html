@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Results - Good AI Skin Doctor{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="card shadow-lg mx-auto" style="max-width: 700px;">
+        <div class="card-body">
+            <h2 class="card-title mb-3">Skin Disease Analysis Results</h2>
+            
+            <!-- Disease Prediction Results -->
+            <div class="alert {% if result.is_error %}alert-warning{% else %}alert-info{% endif %} mb-4">
+                <h4 class="alert-heading">{% if result.is_error %}Analysis Result{% else %}Predicted Skin Condition{% endif %}</h4>
+                <p class="fs-5 mb-2"><strong>{{ result.disorder or result.skin_condition }}</strong></p>
+                <div class="mt-3">
+                    <strong>Uploaded file:</strong> {{ result.filename }}
+                </div> 
+                <div class="mt-1">
+                    <strong>Source:</strong> {{ result.source }}
+                </div>
+                
+                {% if not result.is_error %}
+                    <!-- Only show recommendations for valid skin conditions -->
+                    <div class="mt-2 alert alert-light">
+                        <h6>Clinical recommendation:</h6>
+                        <p class="mb-0">{{ result.clinical_recommendation or result.recommendation }}</p>
+                    </div>
+                    {% if result.natural_remedies %}
+                    <div class="mt-2 alert alert-success">
+                        <h6>Natural remedies:</h6>
+                        <p class="mb-0">{{ result.natural_remedies }}</p>
+                    </div>
+                    {% endif %}
+                {% else %}
+                    <!-- For non-skin images, just show the message -->
+                    <div class="mt-2">
+                        <p class="mb-0">{{ result.clinical_recommendation or result.recommendation }}</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Using model-only predictions -->
+            <div class="alert alert-secondary mb-4">
+                <p class="mb-0 small">Running model-only predictions (local Keras model).</p>
+            </div>
+
+            {% if result.top_predictions %}
+            <div class="card mb-3">
+                <div class="card-header">Alternative possibilities</div>
+                <ul class="list-group list-group-flush">
+                    {% for p in result.top_predictions %}
+                        <li class="list-group-item">{{ p }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Important Notice -->
+            <div class="alert alert-warning mb-4">
+                <h5 class="alert-heading">⚠️ Important Notice</h5>
+                <p class="mb-0">This AI analysis is for informational purposes only and should not replace professional medical advice. Please consult a dermatologist for proper diagnosis and treatment.</p>
+            </div>
+
+            <!-- Demo Mode Notice
+            <div class="alert alert-info mb-4">
+                <h5 class="alert-heading">ℹ️ Analysis Mode</h5>
+                <p class="mb-0">Currently running in <strong>Enhanced AI Mode</strong> - predictions use free APIs and advanced image analysis algorithms. The system can detect 13 skin conditions:</p>
+                <ul class="mb-0 mt-2">
+                    <li><strong>Original Model Diseases:</strong> Actinic keratosis, Basal cell carcinoma, Benign keratosis, Dermatofibroma, Melanoma, Melanocytic nevus, Vascular lesion, Acne vulgaris</li>
+                    <li><strong>Extended Detection:</strong> Psoriasis, Eczema (Atopic Dermatitis), Rosacea, Seborrheic Keratosis, Tinea (fungal)</li>
+                </ul>
+                <p class="mb-0 mt-2"><small>The system uses free APIs (Hugging Face) and sophisticated image analysis to detect all these conditions based on color, texture, brightness, and edge characteristics.</small></p>
+            </div> -->
+
+            <!-- Skin Type and Routine - only show for valid skin conditions -->
+            {% if not result.is_error %}
+                {% if skin_type %}
+                <h4 class="mt-4 mb-3" style="color: white;">Your Skin Type: <span class="badge bg-secondary">{{ skin_type }}</span></h4>
+                {% endif %}
+
+                {% if result.skincare_routine %}
+                <h4 class="mt-4 mb-3" style="color: white;">Personalized Skincare Routine:</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 style="color: white;">Morning Routine:</h5>
+                        <ul class="list-group mb-3">
+                            {% for step in result.skincare_routine.morning %}
+                                <li class="list-group-item">{{ step }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 style="color: white;">Evening Routine:</h5>
+                        <ul class="list-group mb-3">
+                            {% for step in result.skincare_routine.evening %}
+                                <li class="list-group-item">{{ step }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
+            
+            {% if result.lifestyle_tips %}
+            <div class="mt-4">
+                <h4 style="color: white;">Lifestyle Recommendations:</h4>
+                <ul class="list-group">
+                    {% for tip in result.lifestyle_tips %}
+                        <li class="list-group-item">{{ tip }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Action Buttons -->
+            <div class="mt-4">
+                <a href="{{ url_for('upload') }}" class="btn btn-primary me-2">Analyze Another Image</a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include '_chatbot_button.html' %}
+{% endblock %}

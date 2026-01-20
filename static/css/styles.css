@@ -1,0 +1,173 @@
+/* ===== hero & page styling for hero image sized for 1920x800 ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+/* header remains above hero */
+header {
+  width: 100%;
+  background: rgba(4,114,255,0.95);
+  color: #fff;
+  padding: 12px 0;
+  position: relative;
+  z-index: 5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 480px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;     /* horizontal layout */
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  background-color: transparent; /* fully transparent so video shows */
+}
+
+/* Left: hero text card */
+.hero-card {
+  position: relative;
+  z-index: 2;
+  max-width: 500px;
+  flex: 1;
+  margin-right: 40px;
+  padding: 40px 48px;
+  background: rgba(36, 36, 36, 0.1); /* almost transparent */
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+  text-align: left;
+  color: #d2e4ea;
+}
+
+/* hero typography and CTA */
+.hero-card h1,
+.hero-card p,
+.hero-card a {
+  color: #d2e4ea;
+}
+
+.hero-card h1 {
+  font-size: 3rem;
+  margin-bottom: 12px;
+  line-height: 1.05;
+}
+
+.hero-card p {
+  margin-bottom: 22px;
+  font-size: 1.05rem;
+}
+
+.hero-card .btn {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(100, 150, 170, 0.8), rgba(100, 150, 170, 0.8)) !important;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 8px 26px rgba(51,153,255,0.18);
+  text-decoration: none;
+}
+
+/* Right: Swiper carousel */
+.swiper {
+  width: 50% !important;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-size: cover;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+/* responsive adjustments */
+@media (max-width: 1024px) {
+  .hero {
+    height: 72vh;
+    min-height: 420px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 40px;
+  }
+  .hero-card {
+    max-width: 90%;
+    text-align: center;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  .hero-card h1 { font-size: 2.2rem; }
+  .swiper { width: 90% !important; height: 300px; }
+}
+
+@media (max-width: 600px) {
+  .hero { height: 60vh; min-height: 320px; }
+  .hero-card { padding: 22px; width: calc(100% - 40px); }
+  .hero-card h1 { font-size: 1.6rem; }
+  .hero-img { object-position: center top; }
+}
+
+/* Header / footer z-index */
+header, .navbar, .navbar-inner { z-index: 6; position: relative; }
+
+/* CTA button */
+.btn {
+  display: inline-block;
+  background: linear-gradient(rgba(139, 200, 219, 0.6));
+  border-color: #a2afc0;
+  color: rgba(0, 0, 0, 0.9);
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 8px 26px rgba(60, 90, 110, 0.3);
+  text-decoration: none;
+}
+
+/* rest of page */
+.container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 20px; padding-top: 1rem !important; }
+
+.video-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 0;
+}
+
+#bg-video {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+nav, .container { position: relative; z-index: 1; }
+
+.project-title { color: white; font-size: 50px; }
+.project-desc { color: #fff; font-size: 25px; }
+.custom-nav { background-color: rgba(36, 36, 36, 0.0) !important; width:100%; margin-bottom: 0.5rem !important; }
+
+.body { width:100%; }
+.swiper-button-next, .swiper-button-prev { color: white !important; }
+.logo { height: 50px; width: auto; border-radius: 6px; }
+
+.swiper-pagination-bullet-active { background: orange !important; }
+.heading { font-weight:500; }
+.button-container { margin-bottom: 1rem !important; }
+
+.card-body a {
+  color: #d2e4ea;
+  text-decoration: none;
+}
+
+.card-body a:hover {
+  color:#d2e4ea;
+  text-decoration: underline;
+}
+.card{
+background-color:rgb(250 250 250 / 50%);
+}

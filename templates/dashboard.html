@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Good AI Skin Doctor{% endblock %}
+
+{% block content %}
+<div class="py-5 text-center">
+    <div class="card shadow-lg mx-auto" style="max-width: 600px;">
+        <div class="card-body">
+            <h2 class="card-title mb-3">Welcome, {{ user }}!</h2>
+            <p class="card-text">Start a new analysis or view your past results.</p>
+            <a class="btn btn-lg btn-primary" href="{{ url_for('upload') }}">Analyze Skin</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,109 @@
+<!-- Chatbot floating button and modal -->
+<style>
+  #chatbot-btn {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 2000;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+  }
+</style>
+
+<!-- Button -->
+<button id="chatbot-btn" class="btn btn-primary shadow-lg" data-bs-toggle="modal" data-bs-target="#chatbotModal" title="Open Chatbot">
+  💬
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="chatbotModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Skincare Chatbot</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <p class="mb-3">Ask anything related to skincare and get personalized advice.</p>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="chatInput" placeholder="Type your question here...">
+            </div>
+            <button class="btn btn-success w-100 mb-3" id="chatSubmit">Ask</button>
+
+             Place to display chatbot response
+            <div id="chatResponse" class="p-3 border rounded" style="min-height: 100px; background-color: #f8f9fa;">
+                Your chatbot responses will appear here.
+            </div>
+    </div>
+  </div>
+ </div> 
+
+
+<script>
+
+document.getElementById("chatSubmit").addEventListener("click", function() {
+    const userInput = document.getElementById("chatInput").value.trim();
+    if(userInput === "") return;
+
+    const chatDiv = document.getElementById("chatResponse");
+    chatDiv.innerHTML = `<strong>You asked:</strong> ${userInput}<br><em>Searching Wikipedia...</em>`;
+
+    // Enhanced: Use Wikipedia search API for flexible queries
+    fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(userInput)}&format=json&origin=*`)
+        .then(response => response.json())
+        .then(searchData => {
+            if (searchData.query && searchData.query.search && searchData.query.search.length > 0) {
+                const topTitle = searchData.query.search[0].title;
+                fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(topTitle)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let answer = '';
+                        if (data.extract) {
+                            answer = data.extract;
+                            chatDiv.innerHTML = `<strong>You asked:</strong> ${userInput}<br><strong>Chatbot:</strong> ${answer}`;
+                        } else {
+                            answer = "Sorry, I couldn't find an answer.";
+                            chatDiv.innerHTML = `<strong>You asked:</strong> ${userInput}<br><strong>Chatbot:</strong> ${answer}`;
+                        }
+                        // Log to backend
+                        fetch('/log_chat', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ question: userInput, answer: answer })
+                        });
+                    })
+                    .catch(() => {
+                        let answer = "Error fetching answer.";
+                        chatDiv.innerHTML = `<strong>You asked:</strong> ${userInput}<br><strong>Chatbot:</strong> ${answer}`;
+                        fetch('/log_chat', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ question: userInput, answer: answer })
+                        });
+                    });
+            } else {
+                let answer = "Sorry, I couldn't find an answer.";
+                chatDiv.innerHTML = `<strong>You asked:</strong> ${userInput}<br><strong>Chatbot:</strong> ${answer}`;
+                fetch('/log_chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: userInput, answer: answer })
+                });
+            }
+        })
+        .catch(() => {
+            let answer = "Error fetching answer.";
+            chatDiv.innerHTML = `<strong>You asked:</strong> ${userInput}<br><strong>Chatbot:</strong> ${answer}`;
+            fetch('/log_chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: userInput, answer: answer })
+            });
+        });
+
+    document.getElementById("chatInput").value = "";
+});
+
+</script>

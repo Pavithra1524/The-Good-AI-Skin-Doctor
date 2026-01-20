@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Skin Analysis Questionnaire - Good AI Skin Doctor{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+    <div class="card shadow-lg mx-auto" style="max-width: 700px;">
+        <div class="card-body">
+            <h2 class="card-title mb-4">🧴 Skin Analysis Questionnaire</h2>
+            <p class="mb-4">Help us provide you with personalized skincare recommendations by answering a few questions about your skin.</p>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form method="POST" action="{{ url_for('questionnaire') }}">
+                <div class="mb-4">
+                    <h5>1. How would you describe your T-zone (forehead, nose, chin)?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tzone" id="tzone_high" value="high" required>
+                        <label class="form-check-label" for="tzone_high">Oily/Shiny</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tzone" id="tzone_medium" value="medium">
+                        <label class="form-check-label" for="tzone_medium">Normal</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="tzone" id="tzone_low" value="low">
+                        <label class="form-check-label" for="tzone_low">Dry</label>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5>2. How sensitive is your skin?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sensitivity" id="sens_high" value="high" required>
+                        <label class="form-check-label" for="sens_high">Very sensitive (reacts to many products)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sensitivity" id="sens_medium" value="medium">
+                        <label class="form-check-label" for="sens_medium">Moderately sensitive</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="sensitivity" id="sens_low" value="low">
+                        <label class="form-check-label" for="sens_low">Not very sensitive</label>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5>3. What are your main skin concerns?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="concerns" id="concern_acne" value="acne">
+                        <label class="form-check-label" for="concern_acne">Acne/Breakouts</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="concerns" id="concern_aging" value="aging">
+                        <label class="form-check-label" for="concern_aging">Aging/Wrinkles</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="concerns" id="concern_dark" value="dark">
+                        <label class="form-check-label" for="concern_dark">Dark spots/Hyperpigmentation</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="concerns" id="concern_dry" value="dry">
+                        <label class="form-check-label" for="concern_dry">Dryness</label>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5>4. How often do you experience breakouts?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="breakout_frequency" id="breakout_often" value="often" required>
+                        <label class="form-check-label" for="breakout_often">Often (weekly)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="breakout_frequency" id="breakout_sometimes" value="sometimes">
+                        <label class="form-check-label" for="breakout_sometimes">Sometimes (monthly)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="breakout_frequency" id="breakout_rarely" value="rarely">
+                        <label class="form-check-label" for="breakout_rarely">Rarely</label>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5>5. How does your skin feel after washing?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="skin_feel" id="skin_tight" value="tight" required>
+                        <label class="form-check-label" for="skin_tight">Tight and dry</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="skin_feel" id="skin_normal" value="normal">
+                        <label class="form-check-label" for="skin_normal">Normal and comfortable</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="skin_feel" id="skin_oily" value="oily">
+                        <label class="form-check-label" for="skin_oily">Still oily</label>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5>6. How does your skin react to new products?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="reaction_to_products" id="reaction_easily" value="easily" required>
+                        <label class="form-check-label" for="reaction_easily">Easily irritated</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="reaction_to_products" id="reaction_sometimes" value="sometimes">
+                        <label class="form-check-label" for="reaction_sometimes">Sometimes reacts</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="reaction_to_products" id="reaction_rarely" value="rarely">
+                        <label class="form-check-label" for="reaction_rarely">Rarely has reactions</label>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5>7. How often do you currently use skincare products?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="routine" id="routine_daily" value="daily" required>
+                        <label class="form-check-label" for="routine_daily">Daily routine</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="routine" id="routine_occasional" value="occasional">
+                        <label class="form-check-label" for="routine_occasional">Occasionally</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="routine" id="routine_rarely" value="rarely">
+                        <label class="form-check-label" for="routine_rarely">Rarely</label>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">Get My Personalized Results</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include '_chatbot_button.html' %}
+{% endblock %}
